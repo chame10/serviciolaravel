@@ -1,0 +1,70 @@
+.mievento {
+  font-family: Arial;
+ position: center;
+
+}
+label{
+    padding-top: : 8px;
+}
+
+.ubicacion{
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+   display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+   
+}
+.participantes,.participantes1{
+    padding: 8px 15px;
+    margin: 8px 0;
+   
+    border: 1px solid #ccc;
+    border-radius: 4px;
+   
+
+}
+.fecha{
+     width: 20%;
+    
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.Tparticipante{
+    width: 15%;
+}
+#ubicacion{
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+   display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.boton {
+    width: 20%;
+    background-color: #0B0B61;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.boton:hover {
+    background-color: #08088A;
+}
+
+div.container {
+    border-radius: 5px;
+    padding: 20px;
+ 
+     
+}
