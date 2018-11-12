@@ -14,11 +14,9 @@ class LineasController extends Controller
     //
     public function addevent(Request $request){
          $total=$request->locations;
-         
-    	
     	for($i = 0; $i < count($request->locations); $i++){
     		$evento=new event;
-    	$evento->nombre='Nombre del evento';
+    	
     	$evento->fecha=$request->fecha[$i];
     	$evento->id_locations=$request->locations[$i];
     	$evento->id_user=Auth()->id();

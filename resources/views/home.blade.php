@@ -2,7 +2,7 @@
 
 @section('content')
 <head>
-            
+           
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
            <script>
@@ -39,7 +39,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
- <form method="POST" action="{{ url('registrar') }}" enctype="multipart/form-data" >
+ <form method="POST" action="{{URL('actividades/registrar')}}" enctype="multipart/form-data" >
    <div class="cont-tabla">
       <div class="cont-fila">
         <div class="input_fields_wrap">
@@ -80,9 +80,11 @@
    </div>
  
  {{ csrf_field() }}
- <button  class="btn" type="submit">Registrar</button>
+ <button  class="btn btn-primary" type="submit">Registrar</button>
 </form>
-<a href="{{url('actividades')}}" >ver mis actividades</a>
+<a href="{{url('actividades/ver')}}"><button type=""class="btn btn-primary ">ver mis actividades</button></a>   
+ 
+
 
                 </div>
             

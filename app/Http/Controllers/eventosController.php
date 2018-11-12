@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\event;
+use App\file;
+use App\Http\Controllers\Controller;
+
+
+use Illuminate\Support\Facades\Redirect;
 
 class eventosController extends Controller
 {
@@ -16,18 +22,35 @@ class eventosController extends Controller
 
 
     public function update(Request $Request){
-   
-    if($Request->hasfile('listaA')){
-    $lista=$Request->file('listaA')->store('public');
-    $evento=event::find($Request->id);
-    $evento->nombre=$Request->nombre;
-    $evento->objetivo=$Request->objetivo;
-    $evento->justificacion=$Request->justificacion;
-    $evento->lista=$lista;
-    $evento->save();
+    
+    	
+      if($Request->hasfile('listaA')){
+    $path = $Request->file('listaA')->storeAs( 'public/listapdf',$Request->listaA->getClientOriginalName()); 
+     $evento=event::find($Request->id);
+     $evento->nombre=$Request->nombre;
+     $evento->objetivo=$Request->objetivo;
+     $evento->justificacion=$Request->justificacion;
+     $evento->lista=$path;
+      $evento->save();
+
+       $foto= $Request->evidencia;
+       if($foto)
+       {
+      // recorremos cada archivo y lo subimos individualmente
+        for($i=0;$i<count($foto);$i++) {
+          if($Request->hasfile('evidencia')){
+      $path=Request()->evidencia[$i]->storeAs('public/fotos', Request()->evidencia[$i]->getClientOriginalName());
+      $imagen=new file;
+      $imagen->link=$path;
+      $imagen->id_events=$Request->id;
+      $imagen->save();
+        }
+  }
+}
   }
 
-  $archi=DB::TABLE('events')->get();
-   return view('archivo',compact('archi'));
+   
+    	
+        return Redirect::to('actividades/ver');
   }
 }

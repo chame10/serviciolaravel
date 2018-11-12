@@ -94,6 +94,13 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <main class="py-4">
+            @yield('misactividades')
+        </main>
+        <main class="py-4">
+            @yield('mievento')
+        </main>
+       
     </div>
 </body>
 </html>

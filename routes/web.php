@@ -17,7 +17,18 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/registrar','LineasController@addevent');
-Route::get('/actividades','ActivitiesController@showActivities');
-Route::get('/miactividad/{id}','eventosController@updateEvent');
-Route::POST('/completar/actividades','eventosController@update');
+
+
+
+
+
+Route::group(['prefix'=>'actividades'],function(){
+
+      Route::post('registrar','LineasController@addevent');
+
+	Route::get('ver','ActivitiesController@showActivities');
+
+	Route::get('completar/{id}','eventosController@updateEvent');
+
+	Route::POST('actualizar/evento','eventosController@update');
+});

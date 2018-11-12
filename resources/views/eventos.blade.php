@@ -1,125 +1,78 @@
 
+@extends('layouts.app')
+
+@section('mievento')
 <head>
-
+  <link href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+ 
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <meta charset="utf-8">
-    <title></title>
-<style>
-body {
-  font-family: Arial;
- 
-width: 1024px; margin-left: 25%;
-}
-label{
-    padding-top: : 8px;
-}
-
-input[type=text] {
-    width: 50%;
-    padding: 12px 20px;
-    margin: 8px 0;
-   display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-input[type=number]{
-    width: 10%;
-    padding: 8px 15px;
-    margin: 8px 0;
-
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-
-}
-input[type=date]{
-     width: 20%;
-    display: block;
-    margin: 8px 0;
-    
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-select{
-    width: 15%;
-}
-#ubicacion{
-    width: 30%;
-    padding: 12px 20px;
-    margin: 8px 0;
-   display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.btn {
-    width: 20%;
-    background-color: #0B0B61;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #08088A;
-}
-
-div.container {
-    border-radius: 5px;
-    padding: 20px;
- 
-     
-}
-</style>
+    <title>Mi evento</title>
+    <link rel="stylesheet" href="{{asset('css/mievento.css')}}">
+    <script>
+    $(document).ready(function() {
+  var max_fields      = 4; //maximum input boxes allowed
+  var wrapper       = $(".input"); //Fields wrapper
+  var add_button      = $(".add"); //Add button ID
+  
+  var x = 1; //initlal text box count
+  $(add_button).click(function(e){ //on add input button click
+    e.preventDefault();
+    if(x < max_fields){ //max input box allowed
+      x++; //text box increment
+    $(wrapper).append('<div>Tipo:<select name="Tparticipante[]" ><option value="estudiantes">Estudiantes</option><option value="estudiantes">Profesores</option><option value="estudiantes">Administrativos</option><option value="estudiantes">Público en general</option></select>Hombres:<input type="number" id="Pevento" min="1" name="Participantes[]" value="1" required="required">Mujeres:<input type="number" id="Pevento" min="1" name="Participantes1[]" value="1" required="required"><button class="remove_field">x</button></div>'); //add input box
+    }
+  });
+  
+  $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+    e.preventDefault(); $(this).parent('div').remove(); x--;
+  })
+});
+  </script>
 </head>
-
 <h4>Mi Evento</h4>
 <h3>Por favor complete la siguiente información </h3>
+  <form method="POST"  action="{{ url('actividades/actualizar/evento')}}" files="true" enctype="multipart/form-data">
 
-<div class="container">
-  <form method="POST"  action="{{ url('completar/actividades') }}" enctype="multipart/form-data">
-    <body>
     <label><input type="hidden" name="id" value="{{$eventos->id}}"></label>
-    <label for="Fevento">Fecha</label>
-    <input type="date" readonly name="fecha" value="{{$eventos->fecha}}" />
-    <label for="Uevento">Ubicación</label>
-    <input type="text" readonly id="ubicacion" name="ubicacion" value="{{$ubicacion->campus}},{{$ubicacion->nombreLo}}" />
-    <label for="Nevento">Evento:</label>
-    <input type="text" id="Nevento" name="nombre" placeholder="nombre del evento..">
+    <label class="label label-primary" for="Fevento">Fecha</label>
+    <input type="date" readonly  name="fecha" value="{{$eventos->fecha}}" /><br>
+    <label class="label label-primary" for="Uevento">Ubicación</label>
+    <input type="text" readonly id="ubicacion" name="ubicacion" value="{{$ubicacion->campus}},{{$ubicacion->nombreLo}}" /><br>
+    <label class="label label-primary" for="Nevento">Evento:</label>
+    <input   type="text" id="Nevento" name="nombre" placeholder="nombre del evento.."><br>
+    <label class="label label-primary" for="Oeveto">Objetivo:</label><br>
+    <textarea  id="Oeventi"  name="objetivo" rows="4" cols="50" maxlength="250" placeholder="Objetivo.."></textarea><br>
 
-    <label for="Oeveto">Objetivo:</label>
-    <input type="text" id="Oevento" name="objetivo" placeholder="Objetivo..">
-
-    <label for="Jevento">Justificación:</label>
-    <input type="text" id="Jevento" name="justificacion" placeholder="Justificación..">
+    <label class="label label-primary"  for="Jevento">Justificación:</label><br>
+    <textarea  id="Jevento" name="justificacion" rows="5" cols="50" maxlength="250" placeholder="Justificación.."></textarea><br>
 
     <h4>Asistencia</h4>
-    Tipo:<select name="Tparticipante" >
+    <div class="input">
+    Tipo:<select name="Tparticipante[]" >
         <option value="estudiantes">Estudiantes</option>
         <option value="estudiantes">Profesores</option>
         <option value="estudiantes">Administrativos</option>
         <option value="estudiantes">Público en general</option>
     </select>
-    Hombres:<input type="number" id="Pevento" min="1" name="Participantes" value="1" required="required">
-    Mujeres:<input type="number" id="Pevento" min="1" name="Participantes1" value="1" required="required">
+    Hombres:<input type="number" id="Pevento" min="1" name="Participantes[]" value="1" required="required">
+    Mujeres:<input type="number" id="Pevento" min="1" name="Participantes1[]" value="1" required="required">
+    <button id="add" class="add" >+</button>
+</div>
 
-    <p><label for="lista">
-       Lista (PDF):<input type="file" name="listaA" >
+    <p><label class="milabel" for="lista">
+       Lista (PDF):<input type="file" name="listaA" accept="application/pdf" >
     </label></p>
-
-    <p><label for="lista">
-       Evidencia(Foto):<input type="file" name="Evidencia" >
+ 
+    <p><label class="milabel" for="imagen">
+       Evidencia(Foto):<input type="file" name="evidencia[]" id="evidencia[]" multiple="" accept="image/jpeg"  >
     </label></p>
+  
 
    {{ csrf_field() }}
     <button  class="btn" type="submit">Registrar</button>
-    </body>
+    
   </form>
-</div>
+ <a href="{{URL::previous()}}"><button type=""class="btn btn-primary ">Atrás</button></a>
 
-
+@endsection

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('content')
+@section('misactividades')
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>mis actividades</title>
-	<link rel="stylesheet" href="css/tabla.css">
+	<link rel="stylesheet" href="{{asset('css/tabla.css')}}">
 </head>
 <h3 >MIS  ACTIVIDADES</h3>
 <form action="actividades_submit" method="get" accept-charset="utf-8">
@@ -32,9 +32,13 @@
    		<td>{{$actividades->fecha}}</td>
    	</div></div>
    	<div class="columna">
-   		<div class="completar">
-   				<a   href="{{url("/miactividad/{$actividades->id}")}}">Completar</a>
-   			</div>
+      @if($actividades->nombre)
+      <fieldset disabled>
+ <a href="" oneclick="false" class="btn btn-success ">Completada</a>
+      </fieldset>
+      @else
+     <a href="{{ url('actividades/completar', ['id' => $actividades->id]) }}" class="btn btn-danger">Completar</a>
+     @endif
    	</div>
 </div>
    	 @endforeach 
@@ -42,4 +46,5 @@
 		
 </body>
 </form>
+ <a href="{{URL('home')}}"><button type=""class="btn btn-primary ">Atrás</button></a> 
 @endsection
